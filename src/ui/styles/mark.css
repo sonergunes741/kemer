@@ -1,0 +1,205 @@
+/* The family-mark picker: twelve presets and the 3 x 3 drawing pad. */
+
+/* Family mark */
+.k-markpick {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3.5vh;
+  padding: var(--k-gutter);
+  background: rgba(22, 19, 16, 0.78);
+}
+
+.k-markpick__head {
+  text-align: center;
+}
+
+.k-markpick__title {
+  margin: 0 0 8px;
+  color: var(--k-text-2);
+}
+
+.k-markpick__lead {
+  margin: 0;
+  max-width: 30em;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: calc(21px * var(--k-scale));
+  color: var(--k-text);
+}
+
+.k-markpick__body {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(28px, 6vw, 72px);
+}
+
+.k-markpick__col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.k-markpick__sub {
+  color: var(--k-text-3);
+}
+
+.k-markpick__presets {
+  display: grid;
+  grid-template-columns: repeat(6, 56px);
+  gap: 6px;
+}
+
+.k-preset {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    border-color var(--k-fast) var(--k-ease),
+    background-color var(--k-fast) var(--k-ease);
+}
+
+.k-preset:hover {
+  border-color: var(--k-hair);
+}
+
+.k-preset[aria-checked='true'] {
+  border-color: var(--k-hair-strong);
+  background: rgba(242, 236, 224, 0.07);
+}
+
+.k-markglyph__strokes {
+  fill: none;
+  stroke: var(--k-paper);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* The clear button floats so this heading lines up with the presets heading beside it. */
+.k-markpick__drawhead {
+  position: relative;
+}
+
+.k-markpick__drawhead > .k-action {
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.k-pad {
+  width: 200px;
+  height: 200px;
+  touch-action: none;
+  overflow: visible;
+}
+
+.k-pad__frame {
+  fill: rgba(242, 236, 224, 0.03);
+  stroke: var(--k-hair);
+}
+
+.k-pad__strokes {
+  fill: none;
+  stroke: var(--k-paper);
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.k-pad__rubber {
+  stroke: rgba(242, 236, 224, 0.5);
+  stroke-width: 2;
+  stroke-dasharray: 3 5;
+  stroke-linecap: round;
+  opacity: 0;
+}
+
+.k-pad__rubber.is-on {
+  opacity: 1;
+}
+
+.k-pad__point {
+  cursor: pointer;
+  outline: none;
+}
+
+.k-pad__hit {
+  fill: transparent;
+}
+
+.k-pad__dot {
+  fill: rgba(242, 236, 224, 0.7);
+}
+
+.k-pad__ring {
+  fill: none;
+  stroke: var(--k-paper);
+  stroke-width: 1.25;
+  opacity: 0;
+  transition: opacity var(--k-fast) var(--k-ease);
+}
+
+.k-pad__point.is-pending .k-pad__ring,
+.k-pad__point:focus-visible .k-pad__ring {
+  opacity: 1;
+}
+
+.k-pad__point:focus-visible .k-pad__ring {
+  stroke-dasharray: 2.5 3;
+}
+
+.k-markpick__hint {
+  margin: 0;
+  max-width: 200px;
+  font-size: calc(12px * var(--k-scale));
+  color: var(--k-text-3);
+}
+
+/* Landscape phones: tighter rhythm and a slightly smaller pad (its hit radius still spans 44 px). */
+@media (max-height: 480px) {
+  .k-markpick {
+    gap: 10px;
+    padding: 10px var(--k-gutter);
+  }
+
+  .k-markpick__title {
+    margin-bottom: 4px;
+  }
+
+  .k-markpick__lead {
+    font-size: calc(17px * var(--k-scale));
+  }
+
+  .k-markpick__col {
+    gap: 8px;
+  }
+
+  .k-markpick__presets {
+    grid-template-columns: repeat(6, 48px);
+    gap: 4px;
+  }
+
+  .k-preset {
+    width: 48px;
+    height: 48px;
+  }
+
+  .k-pad {
+    width: 172px;
+    height: 172px;
+  }
+
+  .k-markpick__hint {
+    max-width: 172px;
+    font-size: calc(11px * var(--k-scale));
+  }
+}

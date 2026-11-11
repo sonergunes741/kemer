@@ -1,0 +1,44 @@
+{
+  "name": "kemer",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Kemer: build stone arch bridges on real Anatolian rivers, strike the centering, then let nine centuries test them.",
+  "type": "module",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run typecheck && vite build",
+    "preview": "vite preview",
+    "package": "npm run build && node scripts/package.mjs",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.node.json",
+    "typecheck:sim": "tsc --noEmit -p tsconfig/sim.json",
+    "typecheck:world": "tsc --noEmit -p tsconfig/world.json",
+    "typecheck:bridge": "tsc --noEmit -p tsconfig/bridge.json",
+    "typecheck:audio": "tsc --noEmit -p tsconfig/audio.json",
+    "typecheck:ui": "tsc --noEmit -p tsconfig/ui.json",
+    "typecheck:game": "tsc --noEmit -p tsconfig/game.json",
+    "typecheck:content": "tsc --noEmit -p tsconfig/content.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "shot": "node scripts/shot.mjs",
+    "balance": "node --experimental-strip-types scripts/balance.ts"
+  },
+  "dependencies": {
+    "@dimforge/rapier3d-compat": "0.21.0",
+    "@fontsource-variable/inter": "5.3.0",
+    "@fontsource/cormorant-garamond": "5.3.0",
+    "postprocessing": "6.39.5",
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "@types/three": "0.186.0",
+    "happy-dom": "21.0.4",
+    "typescript": "7.0.2",
+    "vite": "8.3.5",
+    "vitest": "5.0.5"
+  }
+}

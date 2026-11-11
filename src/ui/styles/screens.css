@@ -1,0 +1,208 @@
+/* Full screens set straight on the picture: the skip button, title, story card and survey. */
+
+.k-skip {
+  position: absolute;
+  right: calc(var(--k-gutter) - 10px);
+  bottom: calc(var(--k-gutter) - 10px);
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 0;
+  background: transparent;
+  color: var(--k-text-3);
+  font-size: var(--k-fs-label);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-shadow: var(--k-text-shadow);
+  transition: color var(--k-fast) var(--k-ease);
+}
+
+.k-skip:hover {
+  color: var(--k-text);
+}
+
+/* Title */
+.k-title {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 46%, rgba(27, 24, 21, 0.42), rgba(27, 24, 21, 0) 70%),
+    linear-gradient(to bottom, rgba(27, 24, 21, 0.2), rgba(27, 24, 21, 0) 35%, rgba(27, 24, 21, 0) 65%, rgba(27, 24, 21, 0.4));
+}
+
+.k-title__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.k-title__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: calc(clamp(76px, 17vh, 150px) * var(--k-scale));
+  line-height: 1;
+  letter-spacing: 0.08em;
+  /* Tracking adds space after the last letter too; this keeps the word optically centred. */
+  margin-right: -0.08em;
+  color: var(--k-paper);
+  text-shadow: 0 1px 3px rgba(27, 24, 21, 0.45), 0 0 50px rgba(27, 24, 21, 0.4);
+  animation: k-in 900ms var(--k-ease) both;
+}
+
+.k-title__tag {
+  margin: 4px 0 4.5vh;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: calc(22px * var(--k-scale));
+  color: var(--k-text-2);
+  text-shadow: var(--k-text-shadow);
+}
+
+.k-title.is-first .k-title__name {
+  margin-bottom: 6vh;
+}
+
+.k-title.is-first .k-action {
+  animation: k-in 900ms var(--k-ease) 500ms both;
+}
+
+.k-title__menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  animation: k-in 600ms var(--k-ease) 200ms both;
+}
+
+.k-title__menu .k-action {
+  min-width: 220px;
+}
+
+.k-title__credits {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--k-gutter) - 10px);
+  transform: translateX(-50%);
+  min-height: 44px;
+  padding: 0 14px;
+  border: 0;
+  background: transparent;
+  color: var(--k-text-3);
+  font-size: var(--k-fs-label);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-shadow: var(--k-text-shadow);
+}
+
+.k-title__credits:hover {
+  color: var(--k-text);
+}
+
+/* Landscape phones: a smaller name and the menu in two columns, so five 44 px rows still fit. */
+@media (max-height: 480px) {
+  .k-title__name {
+    font-size: calc(64px * var(--k-scale));
+  }
+
+  .k-title__tag {
+    margin: 2px 0 3vh;
+    font-size: calc(18px * var(--k-scale));
+  }
+
+  .k-title__menu {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    justify-items: stretch;
+    gap: 2px 8px;
+  }
+
+  .k-title__menu .k-action {
+    min-width: 176px;
+  }
+
+  .k-title__menu .k-action--strong {
+    grid-column: 1 / -1;
+    justify-self: center;
+    min-width: 220px;
+  }
+
+  .k-title__credits {
+    left: auto;
+    right: calc(var(--k-gutter) - 10px);
+    transform: none;
+  }
+}
+
+/* Story card and survey */
+.k-vignette {
+  display: grid;
+  place-items: center;
+  padding: var(--k-gutter);
+  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(27, 24, 21, 0.62), rgba(27, 24, 21, 0.3));
+}
+
+.k-vignette__card {
+  max-width: 34em;
+  text-align: center;
+}
+
+.k-vignette__year {
+  font-size: calc(48px * var(--k-scale));
+  line-height: 1;
+  color: var(--k-text-2);
+}
+
+.k-vignette__heading {
+  margin: 14px 0 3vh;
+  color: var(--k-text-3);
+}
+
+.k-vignette__line {
+  margin: 0 0 0.7em;
+  font-family: var(--font-display);
+  font-size: calc(24px * var(--k-scale));
+  line-height: 1.4;
+  color: var(--k-text);
+  text-shadow: var(--k-text-shadow);
+  text-wrap: pretty;
+  animation: k-rise 900ms var(--k-ease) backwards;
+}
+
+.k-survey {
+  display: grid;
+  place-items: center;
+  background: linear-gradient(to bottom, rgba(27, 24, 21, 0.1), rgba(27, 24, 21, 0.38));
+}
+
+.k-survey__inner {
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(27, 24, 21, 0.5), 0 0 40px rgba(27, 24, 21, 0.4);
+}
+
+.k-survey__year {
+  font-size: calc(clamp(64px, 15vh, 128px) * var(--k-scale));
+  font-weight: 400;
+  line-height: 1;
+  color: var(--k-paper);
+  animation: k-in 1200ms var(--k-ease) both;
+}
+
+.k-survey__river {
+  margin: 10px 0 8px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: calc(clamp(30px, 6vh, 46px) * var(--k-scale));
+  line-height: 1.1;
+  animation: k-in 1200ms var(--k-ease) 400ms both;
+}
+
+.k-survey__place {
+  color: var(--k-text-2);
+  animation: k-in 1200ms var(--k-ease) 800ms both;
+}

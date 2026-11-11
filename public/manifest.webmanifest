@@ -1,0 +1,20 @@
+{
+  "name": "Kemer",
+  "short_name": "Kemer",
+  "description": "Gerçek Anadolu nehirlerinde taş kemer köprüler kur; yüzyıllar sınasın. Build stone arch bridges on real Anatolian rivers and let the centuries test them.",
+  "lang": "tr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "display_override": ["fullscreen", "standalone"],
+  "orientation": "landscape",
+  "background_color": "#0e0b09",
+  "theme_color": "#1b1815",
+  "categories": ["games"],
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

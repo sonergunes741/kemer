@@ -1,0 +1,196 @@
+/* The ledger: one row per river, with the sketch of the bridge and its seals. */
+
+/* Ledger */
+.k-ledger {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--k-gutter) var(--k-gutter) 0;
+  /* Opaque enough that a result or fall screen's large type beneath does not show through. */
+  background: rgba(22, 19, 16, 0.96);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.k-ledger__head,
+.k-ledger__scroll {
+  width: 100%;
+  max-width: 980px;
+}
+
+.k-ledger__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-bottom: 2.5vh;
+}
+
+.k-ledger__family {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.k-ledger__mark .k-markglyph__strokes {
+  stroke-width: 2.2;
+}
+
+.k-ledger__title {
+  margin: 0 0 2px;
+  color: var(--k-text-3);
+}
+
+.k-ledger__rank {
+  font-family: var(--font-display);
+  font-size: calc(28px * var(--k-scale));
+  line-height: 1.1;
+}
+
+.k-ledger__total {
+  font-size: var(--k-fs-small);
+  color: var(--k-text-2);
+}
+
+.k-close {
+  margin: -8px -10px 0 0;
+}
+
+.k-ledger__scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--k-hair) transparent;
+  padding-bottom: var(--k-gutter);
+}
+
+.k-ledger__rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--k-hair);
+}
+
+.k-ledger__row {
+  border-top: 1px solid var(--k-hair);
+}
+
+.k-ledger__main {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) 150px 92px 52px;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  min-height: 66px;
+  padding: 10px 6px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  color: inherit;
+}
+
+button.k-ledger__main {
+  cursor: pointer;
+  transition: background-color var(--k-fast) var(--k-ease);
+}
+
+button.k-ledger__main:hover {
+  background: rgba(242, 236, 224, 0.045);
+}
+
+.k-ledger__year {
+  font-size: calc(24px * var(--k-scale));
+  color: var(--k-text-2);
+}
+
+.k-ledger__names {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.k-ledger__river {
+  font-family: var(--font-display);
+  font-size: calc(22px * var(--k-scale));
+  line-height: 1.2;
+}
+
+.k-ledger__place,
+.k-ledger__witnessed {
+  font-size: calc(12px * var(--k-scale));
+  color: var(--k-text-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.k-ledger__witnessed .k-label {
+  font-size: calc(9.5px * var(--k-scale));
+}
+
+.k-ledger__nosketch {
+  font-size: calc(12px * var(--k-scale));
+  color: var(--k-text-3);
+  font-style: italic;
+  font-family: var(--font-display);
+}
+
+.k-ledger__stood {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.k-ledger__stood .k-num {
+  font-size: calc(24px * var(--k-scale));
+}
+
+.k-ledger__unit {
+  font-size: calc(12px * var(--k-scale));
+  color: var(--k-text-3);
+}
+
+.k-sealdots {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.k-sealdot {
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--k-hair-strong);
+  border-radius: 50%;
+}
+
+.k-sealdot.is-on {
+  background: var(--k-gold);
+  border-color: var(--k-gold);
+}
+
+.k-ledger__row.is-master .k-ledger__year {
+  color: var(--k-gold);
+}
+
+.k-ledger__row.is-locked {
+  opacity: 0.34;
+}
+
+.k-sketch__ring,
+.k-sketch__pier {
+  fill: rgba(242, 236, 224, 0.1);
+  stroke: rgba(242, 236, 224, 0.78);
+  stroke-width: 1;
+  stroke-linejoin: round;
+}
+
+.k-sketch__deck {
+  fill: none;
+  stroke: rgba(242, 236, 224, 0.6);
+  stroke-width: 1;
+}
+
+.k-ledger__sketch {
+  display: block;
+}

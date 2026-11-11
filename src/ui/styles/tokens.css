@@ -1,0 +1,315 @@
+/*
+ * Kemer interface tokens (DESIGN section 6) and the shared controls. Defined on the interface
+ * root so the lead's base tokens stay untouched. Paper on the picture, ink as the veil, gold only
+ * for the line of thrust and the seals, rust for what will fall.
+ */
+
+.kemer-ui {
+  --k-paper: #f2ece0;
+  --k-ink: #1b1815;
+  --k-stone: #a69e90;
+  --k-sage: #6e8f7a;
+  --k-sage-light: #9dbaa6;
+  --k-gold: #d9a441;
+  --k-gold-light: #f3d89a;
+  --k-amber: #e2893a;
+  --k-rust: #b5482e;
+  /* Rust lifted for text and lines on a dark picture, where #B5482E alone goes muddy. */
+  --k-rust-light: #dc6a4c;
+
+  --k-text: rgba(242, 236, 224, 0.95);
+  --k-text-2: rgba(242, 236, 224, 0.76);
+  --k-text-3: rgba(242, 236, 224, 0.54);
+  --k-hair: rgba(242, 236, 224, 0.22);
+  --k-hair-strong: rgba(242, 236, 224, 0.48);
+  --k-veil: rgba(27, 24, 21, 0.5);
+  --k-veil-strong: rgba(27, 24, 21, 0.8);
+  --k-card: rgba(25, 22, 19, 0.9);
+  --k-text-shadow: 0 1px 2px rgba(27, 24, 21, 0.5), 0 0 16px rgba(27, 24, 21, 0.38);
+  /* Warm warning colours lose their edge over pale sunlit rock: a tight dark halo keeps them sharp. */
+  --k-halo-warn: 0 0 1px rgba(27, 24, 21, 0.95), 0 0 3px rgba(27, 24, 21, 0.8), 0 1px 6px rgba(27, 24, 21, 0.6), 0 0 18px rgba(27, 24, 21, 0.45);
+
+  --k-scale: 1;
+  --k-gutter: clamp(16px, 3.2vw, 44px);
+  --k-fs-label: calc(11px * var(--k-scale));
+  --k-fs-small: calc(13px * var(--k-scale));
+  --k-fs-body: calc(15px * var(--k-scale));
+  --k-fs-line: calc(19px * var(--k-scale));
+
+  --k-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --k-fast: 180ms;
+  --k-dur: 260ms;
+  --k-slow: 320ms;
+
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  color: var(--k-text);
+  font-family: var(--font-ui);
+  font-size: var(--k-fs-body);
+  line-height: 1.45;
+  transition: opacity var(--k-slow) var(--k-ease);
+}
+
+.kemer-ui.is-hidden {
+  opacity: 0;
+}
+
+/* No border-radius here: the outline follows each control's own shape (pills stay pills). */
+.kemer-ui :focus-visible {
+  outline: 1.5px solid var(--k-paper);
+  outline-offset: 3px;
+}
+
+/* A screen that holds focus for a pointer player draws no ring around itself. */
+.kemer-ui [tabindex='-1']:focus {
+  outline: none;
+}
+
+/* :where keeps this reset at element weight, so every button class can still set its own type and colour. */
+:where(.kemer-ui) button {
+  font: inherit;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.kemer-ui [hidden] {
+  display: none !important;
+}
+
+/* Small capitals with open tracking: the quiet voice for names of things. */
+.k-label {
+  font-family: var(--font-ui);
+  font-size: var(--k-fs-label);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+/* Small type on the open picture needs a firmer halo than large type to hold against a bright sky. */
+.k-hud .k-label {
+  text-shadow: 0 1px 2px rgba(27, 24, 21, 0.62), 0 0 10px rgba(27, 24, 21, 0.45);
+}
+
+/* Large serif numerals: years, counts, the gauge. Lining and tabular so they do not dance. */
+.k-num {
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: 'lnum' 1, 'tnum' 1;
+}
+
+.k-icon {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.k-icon--fill {
+  fill: currentColor;
+  stroke: none;
+}
+
+.k-iconbtn {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--k-text-2);
+  cursor: pointer;
+  pointer-events: auto;
+  filter: drop-shadow(0 1px 2px rgba(27, 24, 21, 0.55));
+  transition:
+    color var(--k-fast) var(--k-ease),
+    background-color var(--k-fast) var(--k-ease),
+    opacity var(--k-fast) var(--k-ease);
+}
+
+.k-iconbtn:hover:not(:disabled) {
+  color: var(--k-paper);
+  background: rgba(242, 236, 224, 0.08);
+}
+
+.k-iconbtn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* A quiet text action; the strong one carries a hairline pill. */
+.k-action {
+  min-height: 44px;
+  padding: 0 22px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--k-text);
+  font-size: var(--k-fs-body);
+  letter-spacing: 0.02em;
+  text-shadow: var(--k-text-shadow);
+  white-space: nowrap;
+  cursor: pointer;
+  pointer-events: auto;
+  transition:
+    border-color var(--k-fast) var(--k-ease),
+    background-color var(--k-fast) var(--k-ease),
+    color var(--k-fast) var(--k-ease);
+}
+
+.k-action:hover {
+  border-color: var(--k-hair);
+}
+
+.k-action--strong {
+  border-color: var(--k-hair-strong);
+  background: rgba(27, 24, 21, 0.28);
+}
+
+.k-action--strong:hover {
+  border-color: var(--k-paper);
+  background: rgba(242, 236, 224, 0.08);
+}
+
+.k-action--small {
+  padding: 0 14px;
+  font-size: var(--k-fs-small);
+  color: var(--k-text-2);
+}
+
+.k-action.is-disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.k-action.is-disabled:hover {
+  border-color: var(--k-hair-strong);
+  background: rgba(27, 24, 21, 0.28);
+}
+
+/* Segmented choice: the chosen one in full paper with a hairline under it. */
+.k-seg {
+  display: flex;
+  gap: 2px;
+  pointer-events: auto;
+}
+
+.k-seg__btn {
+  position: relative;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 10px;
+  border: 0;
+  background: transparent;
+  color: var(--k-text-3);
+  font-size: var(--k-fs-small);
+  cursor: pointer;
+  text-shadow: var(--k-text-shadow);
+  transition: color var(--k-fast) var(--k-ease);
+}
+
+.k-seg__btn:hover {
+  color: var(--k-text);
+}
+
+.k-seg__btn[aria-pressed='true'] {
+  color: var(--k-paper);
+}
+
+.k-seg__btn::after {
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 8px;
+  height: 1px;
+  background: var(--k-paper);
+  transform: scaleX(0);
+  transition: transform var(--k-dur) var(--k-ease);
+}
+
+.k-seg__btn[aria-pressed='true']::after {
+  transform: scaleX(1);
+}
+
+/* Layers */
+.k-input,
+.k-hud,
+.k-screens,
+.k-overlays {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.k-input {
+  touch-action: none;
+}
+
+.k-input.is-on {
+  pointer-events: auto;
+}
+
+.k-input.is-look {
+  cursor: grab;
+}
+
+.k-input.is-look.is-active {
+  cursor: grabbing;
+}
+
+.k-screen {
+  position: absolute;
+  inset: 0;
+  pointer-events: auto;
+  animation: k-in var(--k-slow) var(--k-ease) both;
+}
+
+.k-screen.is-leaving {
+  animation: k-out 220ms ease-out both;
+  pointer-events: none;
+}
+
+@keyframes k-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes k-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes k-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+.kemer-ui.k-reduced *,
+.kemer-ui.k-reduced *::before,
+.kemer-ui.k-reduced *::after {
+  animation-duration: 1ms !important;
+  animation-delay: 0ms !important;
+  transition-duration: 1ms !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kemer-ui *,
+  .kemer-ui *::before,
+  .kemer-ui *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 1ms !important;
+  }
+}

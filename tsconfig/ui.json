@@ -1,0 +1,4 @@
+{
+  "extends": "../tsconfig.base.json",
+  "include": ["../src/core", "../src/vite-env.d.ts", "../src/ui", "../src/i18n", "../harness/ui*"]
+}

@@ -1,0 +1,36 @@
+/* Harness-only chrome: the control strip along the top edge. */
+.hx-strip {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  border-radius: 0 0 6px 6px;
+  background: rgba(10, 8, 6, 0.72);
+  font: 12px/1.2 system-ui, sans-serif;
+  color: #ddd;
+  pointer-events: auto;
+}
+
+.hx-strip select,
+.hx-strip button {
+  font: inherit;
+  color: #eee;
+  background: #2a2520;
+  border: 1px solid #4a443c;
+  border-radius: 3px;
+  padding: 2px 6px;
+}
+
+.hx-strip output {
+  min-width: 18em;
+  max-width: 28em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #c8b98f;
+}

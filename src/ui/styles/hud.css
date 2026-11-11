@@ -1,0 +1,278 @@
+/* The HUD on the picture: heading, menu, şakül, primary control and the build line. */
+
+.k-hud > * {
+  position: absolute;
+}
+
+.k-design,
+.k-build,
+.k-time {
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--k-dur) var(--k-ease),
+    visibility 0s linear var(--k-dur);
+}
+
+.k-design.is-on,
+.k-build.is-on,
+.k-time.is-on {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--k-dur) var(--k-ease);
+}
+
+.k-design > *,
+.k-build > *,
+.k-time > * {
+  position: absolute;
+}
+
+/* Place heading, top left: the year in Cormorant, the river in small capitals. */
+.k-heading {
+  top: var(--k-gutter);
+  left: var(--k-gutter);
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  text-shadow: var(--k-text-shadow);
+}
+
+.k-heading__year {
+  font-size: calc(24px * var(--k-scale));
+  line-height: 1;
+  color: var(--k-text);
+}
+
+.k-heading__river {
+  color: var(--k-text-2);
+}
+
+.k-menu {
+  top: calc(var(--k-gutter) - 11px);
+  right: calc(var(--k-gutter) - 11px);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--k-dur) var(--k-ease),
+    color var(--k-fast) var(--k-ease);
+}
+
+.k-menu.is-on {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* The şakül hangs from the top edge, a little in from the corner menu. */
+.k-plumb {
+  top: 0;
+  right: calc(var(--k-gutter) + 52px);
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.k-plumb__svg {
+  display: block;
+  overflow: visible;
+  filter: drop-shadow(0 1px 1.5px rgba(27, 24, 21, 0.6));
+}
+
+.k-plumb__bracket {
+  stroke: var(--k-hair-strong);
+  stroke-width: 1.5;
+}
+
+.k-plumb__string {
+  stroke: rgba(242, 236, 224, 0.7);
+  stroke-width: 1;
+}
+
+.k-plumb__bob {
+  fill: var(--k-paper);
+  stroke: none;
+  transition: fill var(--k-dur) var(--k-ease);
+}
+
+.k-plumb__reading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-bottom: 2px;
+  text-shadow: var(--k-text-shadow);
+}
+
+.k-plumb__num {
+  font-size: calc(34px * var(--k-scale));
+  line-height: 0.95;
+  color: var(--k-text);
+  transition: color var(--k-dur) var(--k-ease);
+}
+
+.k-plumb__word {
+  color: var(--k-text-2);
+  white-space: nowrap;
+  transition: color var(--k-dur) var(--k-ease);
+}
+
+.k-plumb.is-narrow .k-plumb__num,
+.k-plumb.is-narrow .k-plumb__word {
+  color: var(--k-amber);
+}
+
+.k-plumb.is-falls .k-plumb__num,
+.k-plumb.is-falls .k-plumb__word {
+  color: var(--k-rust-light);
+}
+
+.k-plumb.is-narrow .k-plumb__reading,
+.k-plumb.is-falls .k-plumb__reading {
+  text-shadow: var(--k-halo-warn);
+}
+
+.k-plumb.is-falls .k-plumb__bob {
+  fill: var(--k-rust-light);
+}
+
+.k-plumb.is-heavy .k-plumb__word {
+  color: var(--k-stone);
+}
+
+.k-plumb--small .k-plumb__num {
+  font-size: calc(24px * var(--k-scale));
+}
+
+.k-plumb--small .k-plumb__word {
+  font-size: calc(10px * var(--k-scale));
+}
+
+/* The one primary control. */
+.k-primary {
+  left: 50%;
+  bottom: var(--k-gutter);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--k-dur) var(--k-ease),
+    visibility 0s linear var(--k-dur);
+}
+
+.k-primary.is-on {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--k-dur) var(--k-ease);
+}
+
+.k-primary__btn {
+  min-width: 176px;
+  min-height: 52px;
+  padding: 0 30px;
+  border: 1px solid var(--k-hair-strong);
+  border-radius: 999px;
+  background: rgba(27, 24, 21, 0.4);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: var(--k-paper);
+  font-size: calc(13px * var(--k-scale));
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: none;
+  user-select: none;
+  transition:
+    border-color var(--k-fast) var(--k-ease),
+    background-color var(--k-fast) var(--k-ease),
+    color var(--k-fast) var(--k-ease),
+    transform var(--k-fast) var(--k-ease);
+}
+
+.k-primary__btn:hover {
+  border-color: var(--k-paper);
+}
+
+.k-primary__btn.is-down {
+  background: rgba(242, 236, 224, 0.16);
+  border-color: var(--k-paper);
+  transform: scale(0.98);
+}
+
+.k-primary__btn.is-rust {
+  border-color: var(--k-rust-light);
+  color: var(--k-rust-light);
+}
+
+.k-primary__btn.is-disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.k-primary__meter {
+  width: 176px;
+  height: 1px;
+  background: var(--k-hair);
+  opacity: 0;
+  transition: opacity var(--k-dur) var(--k-ease);
+}
+
+.k-primary__meter.is-on {
+  opacity: 1;
+}
+
+.k-primary__fill {
+  height: 100%;
+  background: var(--k-paper);
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 120ms linear;
+}
+
+.k-primary__count {
+  min-height: 1em;
+  font-size: calc(15px * var(--k-scale));
+  color: var(--k-text-3);
+  line-height: 1;
+  text-shadow: var(--k-text-shadow);
+}
+
+/* A short instruction where the control would be, for gestures in the scene. */
+.k-build__line {
+  left: 50%;
+  bottom: calc(var(--k-gutter) + 10px);
+  transform: translateX(-50%);
+  max-width: min(560px, 86vw);
+  text-align: center;
+  font-size: var(--k-fs-line);
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--k-text);
+  text-shadow: var(--k-text-shadow);
+  opacity: 0;
+  transition: opacity var(--k-dur) var(--k-ease);
+}
+
+.k-build__line.is-on {
+  opacity: 1;
+}
+
+.k-build__line.is-quiet {
+  opacity: 0;
+}
+
+@media (max-height: 480px) {
+  .k-primary__btn {
+    min-height: 46px;
+  }
+
+  .k-plumb--large .k-plumb__num {
+    font-size: calc(28px * var(--k-scale));
+  }
+}

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kemer: simulation harness</title>
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        font: 13px/1.4 system-ui, sans-serif;
+        background: #1b1815;
+        color: #e8e0d2;
+      }
+      #side {
+        width: 330px;
+        padding: 12px 14px;
+        overflow: auto;
+        box-sizing: border-box;
+        border-right: 1px solid #3a332b;
+      }
+      #view {
+        flex: 1;
+        min-width: 0;
+        height: 100%;
+        background: #221e1a;
+      }
+      label {
+        display: block;
+        margin: 10px 0 2px;
+      }
+      input[type='range'] {
+        width: 100%;
+      }
+      pre {
+        white-space: pre-wrap;
+        font: 12px/1.4 ui-monospace, Consolas, monospace;
+      }
+      a {
+        color: #d9b26a;
+        margin-right: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="side">
+      <div><a href="?fixture=a">a</a><a href="?fixture=b">b</a><a href="?fixture=c">c</a><a href="?fixture=d">d</a><strong id="title"></strong></div>
+      <label for="rise">rise <span id="riseValue"></span></label>
+      <input id="rise" type="range" />
+      <label for="fullness">fullness <span id="fullnessValue"></span></label>
+      <input id="fullness" type="range" />
+      <label for="thickness">thickness <span id="thicknessValue"></span></label>
+      <input id="thickness" type="range" />
+      <label for="pier">first pier x <span id="pierValue"></span></label>
+      <input id="pier" type="range" />
+      <pre id="out"></pre>
+    </div>
+    <canvas id="view"></canvas>
+    <script type="module" src="./sim.ts"></script>
+  </body>
+</html>

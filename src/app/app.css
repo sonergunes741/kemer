@@ -1,0 +1,12 @@
+/*
+ * The app's own layer: the black curtain the game fades for the opening and the cuts. It sits
+ * between the picture and the interface, so type can stand on black (the year, the place).
+ */
+.k-curtain {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: 1;
+  pointer-events: none;
+  will-change: opacity;
+}

@@ -1,0 +1,217 @@
+/* The time HUD: the turning year, the timeline, speeds, pause and Onar. */
+
+/* Time: the large turning year in the corner. */
+.k-time__corner {
+  top: calc(var(--k-gutter) - 6px);
+  left: var(--k-gutter);
+  text-shadow: var(--k-text-shadow);
+}
+
+.k-time__yearrow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.k-year {
+  font-size: calc(clamp(52px, 11vh, 92px) * var(--k-scale));
+  font-weight: 500;
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+  color: var(--k-paper);
+}
+
+.k-season {
+  margin-top: 0.6em;
+  overflow: visible;
+}
+
+.k-season__ring {
+  fill: none;
+  stroke: var(--k-hair-strong);
+  stroke-width: 1;
+}
+
+.k-season__dot {
+  fill: var(--k-paper);
+}
+
+.k-time__river {
+  display: block;
+  margin-top: 8px;
+  color: var(--k-text-2);
+}
+
+.k-time__bottom {
+  left: var(--k-gutter);
+  right: var(--k-gutter);
+  bottom: calc(var(--k-gutter) - 8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.k-time__caption {
+  min-height: 1.3em;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: calc(22px * var(--k-scale));
+  color: var(--k-text);
+  text-shadow: var(--k-text-shadow);
+  opacity: 0;
+  transition: opacity var(--k-slow) var(--k-ease);
+}
+
+.k-time__caption.is-on {
+  opacity: 1;
+}
+
+.k-timeline {
+  width: 100%;
+  max-width: 980px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.k-timeline__end {
+  font-size: calc(16px * var(--k-scale));
+  color: var(--k-text-3);
+  text-shadow: var(--k-text-shadow);
+}
+
+.k-timeline__track {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  background: var(--k-hair);
+}
+
+.k-timeline__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--k-text-2);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+
+.k-timeline__ticks {
+  position: absolute;
+  inset: 0;
+}
+
+.k-tick {
+  position: absolute;
+  top: 50%;
+  width: 1px;
+  height: 5px;
+  background: var(--k-hair-strong);
+  transform: translate(-50%, -50%);
+}
+
+.k-tick--event {
+  height: 11px;
+  width: 1.5px;
+  background: var(--k-paper);
+}
+
+.k-tick--outlast {
+  height: 9px;
+  background: var(--k-sage-light);
+}
+
+.k-timeline__head {
+  position: absolute;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--k-paper);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 3px rgba(27, 24, 21, 0.35);
+}
+
+.k-time__controls {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  pointer-events: auto;
+}
+
+.k-time__controls .k-seg__btn {
+  font-family: var(--font-display);
+  font-size: calc(19px * var(--k-scale));
+}
+
+.k-time__pause .k-icon--fill {
+  display: none;
+}
+
+.k-time__pause.is-paused .k-icon {
+  display: none;
+}
+
+.k-time__pause.is-paused .k-icon--fill {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+.k-repair {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--k-hair);
+  border-radius: 999px;
+  background: rgba(27, 24, 21, 0.25);
+  color: var(--k-text-2);
+  cursor: pointer;
+  line-height: 1;
+  text-shadow: var(--k-text-shadow);
+  transition:
+    border-color var(--k-fast) var(--k-ease),
+    background-color var(--k-dur) var(--k-ease),
+    color var(--k-fast) var(--k-ease),
+    opacity var(--k-fast) var(--k-ease);
+}
+
+.k-repair__label {
+  font-size: calc(12px * var(--k-scale));
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.k-repair__cost {
+  font-family: var(--font-display);
+  font-size: calc(18px * var(--k-scale));
+  font-variant-numeric: lining-nums tabular-nums;
+  /* Cormorant sits high in its box; nudge it onto the label's optical centre. */
+  transform: translateY(1px);
+}
+
+.k-repair:hover:not(:disabled) {
+  border-color: var(--k-paper);
+  color: var(--k-paper);
+}
+
+.k-repair:disabled {
+  opacity: 0.32;
+  cursor: default;
+}
+
+.k-repair.is-lit {
+  border-color: var(--k-paper);
+  background: rgba(242, 236, 224, 0.14);
+  color: var(--k-paper);
+  animation: k-lit 1.8s var(--k-ease) 2;
+}
+
+@keyframes k-lit {
+  50% {
+    box-shadow: 0 0 0 6px rgba(242, 236, 224, 0.12);
+  }
+}

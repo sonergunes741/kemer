@@ -1,0 +1,255 @@
+/* The design HUD around the picture: capacities, stones, history, technique chips, issue line. */
+
+/* Design HUD */
+.k-design__gauge {
+  pointer-events: none;
+}
+
+.k-caps {
+  top: calc(var(--k-gutter) + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  white-space: nowrap;
+  text-shadow: var(--k-text-shadow);
+  opacity: 0;
+  transition: opacity var(--k-slow) var(--k-ease);
+}
+
+.k-caps.is-on {
+  opacity: 1;
+}
+
+.k-caps__item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.k-caps__label {
+  color: var(--k-text-2);
+}
+
+.k-caps__value {
+  font-size: var(--k-fs-body);
+  color: var(--k-text);
+}
+
+.k-caps__item.is-short .k-caps__value {
+  color: var(--k-rust-light);
+  text-shadow: var(--k-halo-warn);
+}
+
+.k-caps__sep {
+  color: var(--k-text-3);
+}
+
+.k-design__left {
+  left: var(--k-gutter);
+  bottom: calc(var(--k-gutter) - 8px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.k-stones {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  text-shadow: var(--k-text-shadow);
+}
+
+.k-stones__label {
+  color: var(--k-text-3);
+}
+
+.k-stones__num {
+  font-size: calc(32px * var(--k-scale));
+  line-height: 1;
+  color: var(--k-text);
+}
+
+.k-stones__par {
+  font-family: var(--font-display);
+  font-size: calc(18px * var(--k-scale));
+  color: var(--k-text-3);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.k-history {
+  display: flex;
+  gap: 2px;
+  margin-left: -11px;
+}
+
+.k-chips {
+  right: var(--k-gutter);
+  bottom: calc(var(--k-gutter) - 6px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 4px 6px;
+  max-width: min(40vw, 460px);
+}
+
+.k-chip {
+  position: relative;
+  isolation: isolate;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 0;
+  background: transparent;
+  color: var(--k-text-2);
+  font-size: var(--k-fs-small);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  cursor: pointer;
+  pointer-events: auto;
+  text-shadow: var(--k-text-shadow);
+  transition: color var(--k-fast) var(--k-ease);
+}
+
+/* The visible pill is smaller than the 44 px target. */
+.k-chip::before {
+  content: '';
+  position: absolute;
+  inset: 7px 0;
+  z-index: -1;
+  border: 1px solid var(--k-hair-strong);
+  border-radius: 999px;
+  background: rgba(27, 24, 21, 0.3);
+  transition:
+    background-color var(--k-fast) var(--k-ease),
+    border-color var(--k-fast) var(--k-ease);
+}
+
+.k-chip:hover::before {
+  border-color: var(--k-paper);
+}
+
+.k-chip[aria-pressed='true'] {
+  color: var(--k-ink);
+  text-shadow: none;
+}
+
+.k-chip[aria-pressed='true']::before {
+  background: var(--k-paper);
+  border-color: var(--k-paper);
+}
+
+.k-issue {
+  left: 50%;
+  bottom: calc(var(--k-gutter) + 96px);
+  transform: translateX(-50%);
+  max-width: min(520px, 80vw);
+  text-align: center;
+  font-size: var(--k-fs-small);
+  color: var(--k-rust-light);
+  text-shadow: var(--k-halo-warn);
+  opacity: 0;
+  transition: opacity var(--k-dur) var(--k-ease);
+}
+
+.k-issue.is-on {
+  opacity: 1;
+}
+
+.has-coach .k-issue {
+  opacity: 0;
+}
+
+@media (max-height: 480px), (max-width: 720px) {
+  /* Landscape phones keep the line at the top centre, between the heading and the şakül. */
+  .k-caps {
+    font-size: var(--k-fs-small);
+    gap: 10px;
+  }
+
+  .k-caps__item {
+    gap: 6px;
+  }
+
+  .k-stones__num {
+    font-size: calc(26px * var(--k-scale));
+  }
+
+  .k-chips {
+    max-width: 34vw;
+  }
+
+  .k-issue {
+    bottom: calc(var(--k-gutter) + 64px);
+  }
+}
+
+/* Narrow portrait screens have no room up there: the line sits over the primary control. */
+@media (max-width: 720px) {
+  .k-caps {
+    top: auto;
+    bottom: calc(var(--k-gutter) + 96px);
+  }
+
+  .has-coach .k-caps {
+    opacity: 0;
+  }
+}
+
+/* The epilogue's repair card takes the corner the stone count and the chips use while designing. */
+.kemer-ui.k-restoring .k-design__left,
+.kemer-ui.k-restoring .k-chips,
+.kemer-ui.k-restoring .k-caps {
+  display: none;
+}
+
+.k-restore {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.k-restore__options {
+  position: absolute;
+  left: var(--k-gutter);
+  bottom: calc(var(--k-gutter) - 6px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: min(46vw, 440px);
+  pointer-events: auto;
+}
+
+.k-restore__label {
+  margin: 0 0 2px 14px;
+  color: var(--k-text-2);
+  text-shadow: var(--k-text-shadow);
+}
+
+.k-restore__option {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* The card lies over sunlit stone in the 2026 noon: a deeper veil keeps the costs readable. */
+.k-restore__option::before {
+  background: rgba(27, 24, 21, 0.58);
+}
+
+.k-restore__cost {
+  font-family: var(--font-display);
+  font-size: calc(17px * var(--k-scale));
+  color: var(--k-text-2);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.k-restore__option[aria-pressed='true'] .k-restore__cost {
+  color: var(--k-ink);
+  opacity: 0.72;
+}
+
+.k-restore__option:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
